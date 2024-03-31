@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_media_app',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'social_media_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Add the templates directory to the DIRS list
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,8 +118,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_FILES_DIRS = [BASE_DIR / "static"]  # Add the static directory to the STATIC_FILES_DIRS list
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = "home" # Add this line to redirect the user to the home page after logging in
+LOGOUT_REDIRECT_URL = "home" # Add this line to redirect the user to the home page after logging out
