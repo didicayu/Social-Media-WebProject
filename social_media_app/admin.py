@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import BrandCompany, ProductService, SocialMediaUser, SocialMediaPost, UserInteraction
+from .models import BrandCompany, ProductService, SocialMediaUser, SocialMediaPost, UserInteraction
 
 # Register your models here.
 admin.site.register(BrandCompany)
