@@ -1,15 +1,18 @@
 # First Deliverable
 
 
-## Execution
-Follow the next steps to correctly launch the project application
+## *Execution*
+### Follow the next steps to correctly launch the project application
 ### -Prerequisites
 Before you begin, ensure you have the following installed on your sistem:  
-<span style="color: blue;">- Docker Desktop</span>  
-<span style="color: blue;">- Git</span>
+[Docker Desktop](https://www.docker.com/products/docker-desktop/)  
+[Git](https://git-scm.com/downloads)
+
 ### -Deployment
-#### 1. Clone the github Repository
-Choose the directory you want the project to be cloned and clone it from github:  
+#### 1. Download or Clone the github Repository  
+If you choose to download, check for the _**code**_ button and select Download ZIP and extract it in your desired directory  
+
+An easiest way is to directly clone the github project, then choose the directory you want the project to be cloned and clone it from git:  
 ```bash
 git clone https://github.com/didicayu/Social-Media-WebProject.git
 ```
