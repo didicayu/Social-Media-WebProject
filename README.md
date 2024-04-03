@@ -5,7 +5,7 @@ The data model depicts three main entities: Social Media Users (with their inter
 
 We will utilize APIs from social media platforms to collect relevant data. This data will enable us to analyze user interactions, brand mentions, and product/service reviews, providing insights into the impact of social media on consumer behavior.
 
-## *Execution*
+## *Execution Guide*
 ### Follow the next steps to correctly launch the project application
 ### -Prerequisites
 Before you begin, ensure you have the following installed on your system:  
@@ -31,3 +31,11 @@ $ docker-compose up -d
 ###### This will ensure to fullify all the requirements to run the application
 #### 3. The application should be launched correctly
 You can check it out by navigating in a browser at: <http://localhost:8000>
+To check the admin page you can visit <http://localhost:8000/admin>
+
+#### 4. Terminate the aplication
+After your work is done you can shutdown the docker compose using:
+```bash
+$ docker-compose down
+```
+And the application should be correctly finalized
