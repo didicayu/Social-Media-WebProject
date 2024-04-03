@@ -3,15 +3,26 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-Hi {{ user.username }}!
-<form action="{% url 'logout' %}" method="post"> <!-- We can add a form to log out here -->
-  {% csrf_token %}
-  <button type="submit">Log Out</button>
-</form>
-{% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">Log In</a> <!-- We can now add a link to the login page here -->
-<a href="{% url 'signup' %}">Sign Up</a> <!-- We can now add a link to the signup page here -->
-{% endif %}
+<div class="container">
+      <h1 class="display-4 text-primary">Welcome to the Main Page!</h1>
+  {% if user.is_authenticated %}
+  <div class="row">
+    <div class="col-md-8">
+      <p>Hi {{ user.username }}!</p>
+    </div>
+    <div class="col-md-4 text-end">
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Log Out</button>
+      </form>
+    </div>
+  </div>
+  {% else %}
+  <div class="text-center">
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
+    <a href="{% url 'signup' %}" class="btn btn-outline-primary">Sign Up</a>
+  </div>
+  {% endif %}
+</div>
 {% endblock %}
