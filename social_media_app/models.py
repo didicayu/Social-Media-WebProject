@@ -3,6 +3,14 @@ from django.conf import settings
 
 
 class BrandCompany(models.Model):
+    """
+    Model representing a brand or company.
+
+    Attributes:
+        name (str): The name of the brand or company.
+        industry (str): The industry to which the brand or company belongs.
+    """
+
     name = models.CharField(max_length=100)
     industry = models.CharField(max_length=100)
 
@@ -11,6 +19,13 @@ class BrandCompany(models.Model):
 
 
 class ProductService(models.Model):
+    """
+    Model representing a product or service.
+
+    Attributes:
+        name (str): The name of the product or service.
+        category (str): The category or type of the product or service.
+    """
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
 
@@ -19,6 +34,14 @@ class ProductService(models.Model):
 
 
 class SocialMediaUser(models.Model):
+    """
+    Model representing a common social media user.
+
+    Attributes:
+        user (User): The associated Django User.
+        followers_count (int): The number of followers the user has.
+        following_count (int): The number of users the user is following.
+    """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     followers_count = models.IntegerField(default=0)
     following_count = models.IntegerField(default=0)
@@ -28,6 +51,18 @@ class SocialMediaUser(models.Model):
 
 
 class SocialMediaPost(models.Model):
+    """
+    Model representing a social media post.
+
+    Attributes:
+        content (str): The content of the post.
+        likes (int): The number of likes the post has received.
+        shares (int): The number of shares the post has received.
+        comments (int): The number of comments the post has received.
+        timestamp (datetime): The timestamp of when the post was created.
+        user (SocialMediaUser): The user who created the post.
+        products_services (ManyToManyField): The products or services mentioned in the post.
+    """
     content = models.TextField()
     likes = models.IntegerField(default=0)
     shares = models.IntegerField(default=0)
@@ -41,6 +76,16 @@ class SocialMediaPost(models.Model):
 
 
 class UserInteraction(models.Model):
+    """
+    Model representing a user's interaction with a social media post.
+
+    Attributes:
+        INTERACTION_CHOICES (list): Choices for types of interactions.
+        user (SocialMediaUser): The user who interacted with the post.
+        post (SocialMediaPost): The post being interacted with.
+        interaction_type (str): The type of interaction (like, comment, share).
+        timestamp (datetime): The timestamp of the interaction.
+    """
     INTERACTION_CHOICES = [
         ('like', 'Like'),
         ('comment', 'Comment'),
