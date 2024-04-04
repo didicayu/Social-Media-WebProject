@@ -39,3 +39,44 @@ After your work is done you can shutdown the docker compose using:
 $ docker-compose down
 ```
 And the application should be correctly finalized
+
+## *Data Model*
+
+### BrandCompany
+
+- **Attributes:**
+  - `name` (CharField): The name of the brand or company. Maximum length: 100.
+  - `industry` (CharField): The industry to which the brand or company belongs. Maximum length: 100.
+
+### ProductService
+
+- **Attributes:**
+  - `name` (CharField): The name of the product or service. Maximum length: 100.
+  - `category` (CharField): The category or type of the product or service. Maximum length: 100.
+
+### SocialMediaUser
+
+- **Attributes:**
+  - `user` (ForeignKey): Represents the associated Django User.
+  - `followers_count` (IntegerField): The number of followers the user has. Default: 0.
+  - `following_count` (IntegerField): The number of users the user is following. Default: 0.
+
+### SocialMediaPost
+
+- **Attributes:**
+  - `content` (TextField): The content of the post.
+  - `likes` (IntegerField): The number of likes the post has received. Default: 0.
+  - `shares` (IntegerField): The number of shares the post has received. Default: 0.
+  - `comments` (IntegerField): The number of comments the post has received. Default: 0.
+  - `timestamp` (DateTimeField): The timestamp of when the post was created. Automatically set to the current timestamp.
+  - `user` (ForeignKey): Represents the user who created the post.
+  - `products_services` (ManyToManyField): Represents the products or services mentioned in the post.
+
+### UserInteraction
+
+- **Attributes:**
+  - `INTERACTION_CHOICES` (list): Choices for types of interactions.
+  - `user` (ForeignKey): Represents the user who interacted with the post.
+  - `post` (ForeignKey): Represents the post being interacted with.
+  - `interaction_type` (CharField): The type of interaction (like, comment, share). Maximum length: 10.
+  - `timestamp` (DateTimeField): The timestamp of the interaction. Automatically set to the current timestamp.
