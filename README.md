@@ -20,7 +20,7 @@ An easiest way is to directly clone the github project, then choose the director
 ```bash
 $ git clone https://github.com/didicayu/Social-Media-WebProject.git
 ```
-#### The link below allows to clone the repository using the following command (link)
+#### The link below allows to clone the repository using the previous command 
 [Social-Media-WebProject](https://github.com/didicayu/Social-Media-WebProject.git)
 
 #### 2. Build and Start Docker Containers
