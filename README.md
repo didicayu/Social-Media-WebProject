@@ -30,7 +30,7 @@ $ docker-compose up -d
 ```
 ###### This will ensure to fullify all the requirements to run the application
 #### 3. The application should be launched correctly
-You can check it out by navigating in a browser at: <http://localhost:8000>
+You can check it out by navigating in a browser at: <http://localhost:8000>  
 To check the admin page you can visit <http://localhost:8000/admin>
 
 #### 4. Terminate the aplication
