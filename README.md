@@ -82,19 +82,10 @@ And the application should be correctly finalized
   - `timestamp` (DateTimeField): The timestamp of the interaction. Automatically set to the current timestamp.
 
 ## *Design Considerations*
+1. For testing and evaluation purposes, a superuser has already been created.
+You can log in as superuser by:
 
-1. **Database Normalization**: Ensure that the database is properly normalized to avoid data redundancy and maintain data integrity.
+   -**User**: root
+   
+   -**Password**: root
 
-2. **Indexes**: Consider adding indexes on fields that are frequently used in queries to improve query performance.
-
-3. **Query Optimization**: Optimize queries as the application grows to handle large amounts of data.
-
-4. **Security**: Implement security measures to protect against common vulnerabilities like SQL injection, Cross-Site Request Forgery (CSRF), and Cross-Site Scripting (XSS).
-
-5. **Change Auditing**: Add features to audit changes in the data, tracking who made changes and when they occurred.
-
-6. **Internationalization and Localization**: Support multiple languages and date/time formats.
-
-7. **Unit and Integration Testing**: Implement unit tests and integration tests to ensure code functions as expected and to quickly detect and fix regressions.
-
-8. **Code Documentation**: Maintain clear and up-to-date documentation of the code to facilitate maintenance and understanding by other developers.
