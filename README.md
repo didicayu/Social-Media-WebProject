@@ -89,3 +89,14 @@ You can log in as superuser by:
    
    -**Password**: root
 
+2. **Consistency Across Pages**: We ensure consistency in design elements like color schemes, typography, and layout across all pages for a cohesive user experience.
+
+3. **User Authentication**: We implement a user authentication system, providing a personalized experience for logged-in users while also offering clear prompts and calls-to-action for those who are not logged in.
+
+4. **Form Validation**: We include form validation to ensure that users provide accurate and complete information during the signup process, enhancing data integrity and user experience.
+
+
+
+
+
+
