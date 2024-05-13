@@ -1,4 +1,4 @@
-# First Deliverable - Social Media Project
+# Second Deliverable - Social Media Project
 Our project aims to explore the relationship between social media engagement and consumer behavior. By analyzing interactions between users, brands, and products/services, we intend to understand how social media influences purchasing decisions.
 
 The data model depicts three main entities: Social Media Users (with their interactions), Brands/Companies, and Products/Services, with various relationships among them. Users engage with multiple brands and products/services, while brands target multiple users and offer various products/services.
@@ -81,7 +81,7 @@ And the application should be correctly finalized
   - `interaction_type` (CharField): The type of interaction (like, comment, share). Maximum length: 10.
   - `timestamp` (DateTimeField): The timestamp of the interaction. Automatically set to the current timestamp.
 
-## *Design Considerations*
+## *First Deliverable Design Considerations*
 1. For testing and evaluation purposes, a superuser has already been created.
 You can log in as superuser by:
 
@@ -95,8 +95,7 @@ You can log in as superuser by:
 
 4. **Form Validation**: We include form validation to ensure that users provide accurate and complete information during the signup process, enhancing data integrity and user experience.
 
+## *Agile Behaviour Driven Development (BDD)*
 
-
-
-
-
+The aim of this application is to help users keep track of social media interaction and posts. 
+Features:
