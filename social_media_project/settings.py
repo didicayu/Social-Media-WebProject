@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'social_media_project.urls'
+ROOT_URLCONF = 'social_media_app.urls'
 
 TEMPLATES = [
     {

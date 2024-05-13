@@ -17,10 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from social_media_app.models import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
+    path('posts/<int:pk>',
+         DetailView.as_view(
+             model=SocialMediaPost,
+             template_name='post_detail.html'),
+         name='post_detail'),
+    path('company/<int:pk>',
+         DetailView.as_view(
+             model=BrandCompany,
+             template_name='post_detail.html'),
+         name='post_detail'),
 ]
+
