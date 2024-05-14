@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DetailView
 from django.urls import reverse_lazy
 from .models import BrandCompany
 
@@ -11,4 +11,7 @@ class BrandCompanyCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('company_detail', kwargs={'pk': self.object.pk})
 
-    success_url = get_success_url()
+class BrandCompanyDetailView(DetailView):
+    model = BrandCompany
+    template_name = 'brandcompany_detail.html'
+    context_object_name = 'company'
