@@ -97,7 +97,6 @@ class UserInteraction(models.Model):
     user = models.ForeignKey(SocialMediaUser, on_delete=models.CASCADE)
     post = models.ForeignKey(SocialMediaPost, on_delete=models.CASCADE)
     interaction_type = models.CharField(max_length=10, choices=INTERACTION_CHOICES)
-    comment = models.TextField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
