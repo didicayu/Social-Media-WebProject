@@ -1,3 +1,4 @@
+
 Feature: Create post
   In order to keep track of my posts
   As a user
@@ -20,7 +21,7 @@ Feature: Create post
     Given I login as user "user" with password "password"
     When I create a post
       | content      |  product |
-      | Sketcher     |  shoes   |
+      | Sketcher     |  shoe   |
     Then I'm viewing the details page for post by "user"
       | contnet      |  product |
       | Sketcher     |  shoe   |

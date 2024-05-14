@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from social_media_app.models import *
 from django import forms
-from .models import Post
+from .models import *
 
 class CompanyForm(forms.ModelForm):
     class Meta:
@@ -21,4 +21,4 @@ class InteractionForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = ProductService
-        exclude = ()
+        exclude = ('name', 'category', 'company',)

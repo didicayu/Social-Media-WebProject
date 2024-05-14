@@ -26,12 +26,15 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('posts/<int:pk>/',
-         DetailView.as_view(
-             model=SocialMediaPost,
-             template_name='post_detail.html'
+
+
+    path('interactions/<int:pk>/',
+         InteractionDetailView.as_view(),
+         name="interaction_detail.html"
          ),
-         name='post_detail'),
+    path('interaction/create/',
+         InteractionCreateView.as_view(),
+         name='interaction_create'),
 
     path('company/create/',
          BrandCompanyCreateView.as_view(),
@@ -39,6 +42,20 @@ urlpatterns = [
     path('company/<int:pk>/',
          BrandCompanyDetailView.as_view(),
          name='company_detail'),
+
+    path('post/create/',
+         PostCreateView.as_view(),
+         name='post_create'),
+    path('post/<int:pk>/',
+         PostDetailView.as_view(),
+         name='post_detail'),
+
+    path('product/create/',
+         ProductCreateView.as_view(),
+         name='product_create'),
+    path('product/<int:pk>/',
+         ProductDetailView.as_view(),
+         name='product_detail'),
 
 ]
 
