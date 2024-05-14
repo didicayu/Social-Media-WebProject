@@ -7,4 +7,8 @@ class BrandCompanyCreateView(CreateView):
     model = BrandCompany
     template_name = 'brandcompany_form.html'
     fields = ['name', 'industry']
-    success_url = reverse_lazy('company_list')
+
+    def get_success_url(self):
+        return reverse_lazy('company_detail', kwargs={'pk': self.object.pk})
+
+    success_url = get_success_url()

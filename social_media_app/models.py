@@ -14,7 +14,7 @@ class BrandCompany(models.Model):
 
     name = models.CharField(max_length=100)
     industry = models.CharField(max_length=100)
-    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+    #user_id = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

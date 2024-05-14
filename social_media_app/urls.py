@@ -32,14 +32,13 @@ urlpatterns = [
              template_name='post_detail.html'
          ),
          name='post_detail'),
-    path('company/<int:pk>/',
-         DetailView.as_view(
-             model=BrandCompany,
-             template_name='company_detail.html'
-         ),
-         name='company_detail'),
+
     path('company/create/',
          BrandCompanyCreateView.as_view(),
          name='company_create'),
+    path('company/<int:pk>/',
+         BrandCompanyDetailView.as_view(),
+         name='company_detail'),
+
 ]
 
