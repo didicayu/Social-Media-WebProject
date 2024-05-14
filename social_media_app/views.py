@@ -13,5 +13,5 @@ class BrandCompanyCreateView(CreateView):
 
 class BrandCompanyDetailView(DetailView):
     model = BrandCompany
-    template_name = 'brandcompany_detail.html'
+    template_name = 'company_detail.html'
     context_object_name = 'company'
