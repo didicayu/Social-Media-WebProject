@@ -14,7 +14,7 @@ Feature: Remove Company
       | Coca-Cola   |
     And There are 1 Companies
 
-  Scenario: Remove just company name
+  Scenario: Remove just company industry
     Given I login as user "user" with password "password"
     When I remove company
       | name        |
