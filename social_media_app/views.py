@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView, DetailView
+from django.views.generic.edit import CreateView
+from django.views.generic.detail import DetailView
+
 from django.urls import reverse_lazy
 from .models import BrandCompany
 
