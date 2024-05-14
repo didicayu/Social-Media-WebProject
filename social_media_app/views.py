@@ -25,6 +25,7 @@ class PostCreateView(LoginRequiredMixin,CreateView):
     fields = ['content','product']
 
     def form_valid(self, form):
+        form.instance.user = self.request.user
         form.instance.product = form.cleaned_data['product']
         return super().form_valid(form)
 
