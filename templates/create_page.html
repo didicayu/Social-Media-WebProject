@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Create_page{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1>What element do you want to create?</h1>
+        <form id="createForm" method="GET">
+            <label for="object_type">Select Object Type:</label>
+            <select name="object_type" id="object_type">
+                <option value="company">Company</option>
+                <option value="product">Product</option>
+                <option value="post">Post</option>
+                <option value="interaction">Interaction</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById("createForm").addEventListener("submit", function(event) {
+    var objectType = document.getElementById("object_type").value;
+    var actionUrl = objectType === "company" ? "{% url 'company_create' %}" :
+                   objectType === "product" ? "{% url 'product_create' %}" :
+                   objectType === "post" ? "{% url 'post_create' %}" :
+                   objectType === "interaction" ? "{% url 'interaction_create' %}" :
+                   "{% url 'home' %}";
+    this.setAttribute("action", actionUrl);
+});
+</script>
+{% endblock %}
