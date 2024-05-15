@@ -28,34 +28,84 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
 
-    path('interactions/<int:pk>/',
-         InteractionDetailView.as_view(),
-         name="interaction_detail.html"
-         ),
-    path('interaction/create/',
-         InteractionCreateView.as_view(),
-         name='interaction_create'),
+
+    path('create/',
+         GeneralCreateView.as_view(),
+         name='create_page'),
+
+    path('edit/',
+         GeneralEditView.as_view(),
+         name='edit_page'),
+
+
+
 
     path('company/create/',
          BrandCompanyCreateView.as_view(),
          name='company_create'),
+
     path('company/<int:pk>/',
          BrandCompanyDetailView.as_view(),
          name='company_detail'),
 
-    path('post/create/',
-         PostCreateView.as_view(),
-         name='post_create'),
-    path('post/<int:pk>/',
-         PostDetailView.as_view(),
-         name='post_detail'),
+    path('company/<int:pk>/edit/',
+         BrandCompanyUpdateView.as_view(),
+         name='company_edit'),
+
+    path('deleteCompany/<int:pk>/',
+         BrandCompanyDeleteView.as_view(),
+         name='company_confirm_delete'),
+
+
+
 
     path('product/create/',
          ProductCreateView.as_view(),
          name='product_create'),
+
     path('product/<int:pk>/',
          ProductDetailView.as_view(),
          name='product_detail'),
+
+    path('product/<int:pk>/edit/',
+         ProductUpdateView.as_view(),
+         name='product_edit'),
+
+    path('deleteProduct/<int:pk>/',
+         ProductDeleteView.as_view(),
+         name='product_confirm_delete'),
+
+
+
+
+    path('post/create/',
+         PostCreateView.as_view(),
+         name='post_create'),
+
+    path('post/<int:pk>/',
+         PostDetailView.as_view(),
+         name='post_detail'),
+
+    path('post/<int:pk>/edit/',
+         PostUpdateView.as_view(),
+         name='post_edit'),
+
+    path('deletePost/<int:pk>/',
+         PostDeleteView.as_view(),
+         name='post_confirm_delete'),
+
+
+
+
+    path('interaction/<int:pk>/',
+         InteractionDetailView.as_view(),
+         name='interaction_detail'),
+    path('interaction/create/',
+         InteractionCreateView.as_view(),
+         name='interaction_create'),
+    path('deleteInteraction/<int:pk>/',
+         InteractionDeleteView.as_view(),
+         name='interaction_confirm_delete'),
 
 ]
 
