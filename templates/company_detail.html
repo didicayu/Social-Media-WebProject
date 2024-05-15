@@ -9,6 +9,9 @@
         <h1>Company Detail</h1>
         <p><strong>Name:</strong> {{ company.name }}</p>
         <p><strong>Industry:</strong> {{ company.industry }}</p>
+        <a type="button" href="{% url 'home' %}">Home</a>
+        <a class="button" href="{% url 'company_edit' object.pk %}">Edit</a>
+        <a href="{% url 'company_confirm_delete' object.pk %}" class="btn-danger">Delete</a>
     </div>
   </div>
 </div>

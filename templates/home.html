@@ -4,25 +4,33 @@
 
 {% block content %}
 <div class="container">
-      <h1 class="display-4 text-primary">Welcome to the Main Page!</h1>
-  {% if user.is_authenticated %}
-  <div class="row">
-    <div class="col-md-8">
+  <h1 class="display-4 text-primary">Welcome to the Main Page!</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      {% if user.is_authenticated %}
       <p>Hi {{ user.username }}!</p>
-    </div>
+      <div class="mb-3">
+        <a href="{% url 'create_page' %}" class="btn btn-primary">Create Instances</a>
+      </div>
+      <div>
+        <a href="{% url 'edit_page' %}" class="btn btn-secondary">Edit/Delete Instances</a>
+      </div>
+      </div>
     <div class="col-md-4 text-end">
       <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary">Log Out</button>
       </form>
     </div>
+      {% else %}
+      <div class="text-center">
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
+        <a href="{% url 'signup' %}" class="btn btn-outline-primary">Sign Up</a>
+      </div>
+      {% endif %}
+    </div>
   </div>
-  {% else %}
-  <div class="text-center">
-    <p>You are not logged in</p>
-    <a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
-    <a href="{% url 'signup' %}" class="btn btn-outline-primary">Sign Up</a>
-  </div>
-  {% endif %}
 </div>
 {% endblock %}
+

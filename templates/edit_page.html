@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Create_page{% endblock %}
+
+{% block content %}
+
+<form id="createForm" method="post">
+    {% csrf_token %}
+    <label for="object_type">Select Object Type:</label>
+    <select name="object_type" id="object_type">
+        <option value="company">Company</option>
+        <option value="product">Product</option>
+        <option value="post">Post</option>
+        <option value="interaction">Interaction</option>
+    </select>
+
+    <div id="company_select" style="display: block;">
+        <label for="company">Select Company:</label>
+        <select name="company" id="company">
+            {% for company in companies %}
+                <option value="{{ company.id }}">{{ company.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div id="product_select" style="display: none;">
+        <label for="product">Select Product:</label>
+        <select name="product" id="product">
+            {% for product in products %}
+                <option value="{{ product.id }}">{{ product.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div id="post_select" style="display: none;">
+        <label for="post">Select Post:</label>
+        <select name="post" id="post">
+            {% for post in posts %}
+                <option value="{{ post.id }}">{{ post.id }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div id="interaction_select" style="display: none;">
+        <label for="interaction">Select Interaction:</label>
+        <select name="interaction" id="interaction">
+            {% for interaction in interactions %}
+                <option value="{{ interaction.id }}">{{ interaction.id }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" name='action' value="button_pressed" class="btn btn-primary">Edit</button>
+</form>
+<a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+
+<script>
+document.getElementById("object_type").addEventListener("change", function() {
+    var objectType = this.value;
+    var companySelect = document.getElementById("company_select");
+    var productSelect = document.getElementById("product_select");
+    var postSelect = document.getElementById("post_select");
+    var interactionSelect = document.getElementById("interaction_select");
+
+    // Ocultar todos los desplegables
+    companySelect.style.display = "none";
+    productSelect.style.display = "none";
+    postSelect.style.display = "none";
+    interactionSelect.style.display = "none";
+
+    // Mostrar el desplegable correspondiente al tipo de objeto seleccionado
+    if (objectType === 'company') {
+        companySelect.style.display = "block";
+    } else if (objectType === 'product') {
+        productSelect.style.display = "block";
+    } else if (objectType === 'post') {
+        postSelect.style.display = "block";
+    } else if (objectType === 'interaction') {
+        interactionSelect.style.display = "block";
+    }
+});
+</script>
+
+{% endblock %}
