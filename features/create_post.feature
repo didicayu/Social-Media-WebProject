@@ -32,5 +32,5 @@ Feature: Create post
     When I post a post
       | content        |
       | The Tavern     |
-    Then I'm redirected to the login form
+    Then I'm redirected to create the login form
     And There are 0 posts
