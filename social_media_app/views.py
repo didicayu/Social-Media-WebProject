@@ -1,3 +1,6 @@
+import random
+import os
+from dotenv import load_dotenv
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
@@ -8,9 +11,8 @@ from django.http import HttpResponseRedirect
 from django.views.generic.edit import DeleteView
 from django.shortcuts import redirect
 from .models import *
-import tweepy
+import praw
 from django.http import JsonResponse
-from django.conf import settings
 
 
 class GeneralCreateView(LoginRequiredMixin, TemplateView):
@@ -256,111 +258,49 @@ class InteractionDeleteView(LoginRequiredMixin, DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-###### TRENDING FOR SHOWING TWEETS
-# def trending_tweets(request):
-#     # Twitter API credentials
-#     api_key = settings.TWITTER_API_KEY
-#     api_secret_key = settings.TWITTER_API_SECRET_KEY
-#     access_token = settings.TWITTER_ACCESS_TOKEN
-#     access_token_secret = settings.TWITTER_ACCESS_TOKEN_SECRET
-#
-#
-#     # Authenticate with the Twitter API
-#     auth = tweepy.OAuthHandler(api_key, api_secret_key)
-#     auth.set_access_token(access_token, access_token_secret)
-#     api = tweepy.API(auth)
-#
-#     # Fetch tweets
-#     tweets = api.search_tweets(q="Python", count=10)  # Example: searching for tweets containing "Python"
-#
-#     # Pass tweets to the template
-#     return render(request, 'trending.html', {'tweets': tweets})
+###### TRENDING FOR SHOWING POSTS FROM REDDIT
 
 
-# def trending_tweets(request):
-#     # Twitter API credentials
-#     api_key = settings.TWITTER_API_KEY
-#     api_secret_key = settings.TWITTER_API_SECRET_KEY
-#     bearer_token = settings.TWITTER_BEARER_TOKEN
-#
-#     # Initialize Tweepy client for API v2
-#     client = tweepy.Client(bearer_token=bearer_token)
-#
-#     # Fetch tweets using Twitter API v2
-#     query = "Python -is:retweet"  # Example query, adjust as needed
-#     tweets = client.search_recent_tweets(query=query, max_results=10)
-#
-#     # Extracting necessary information from tweets
-#     # Note: The structure of the response in v2 is different from v1.1
-#     tweet_data = [{
-#         'user': {'name': tweet['author_id']},  # You might need to fetch user details separately
-#         'created_at': tweet['created_at'],
-#         'text': tweet['text']
-#     } for tweet in tweets.data]
-#
-#     # Pass tweets to the template
-#     return render(request, 'trending.html', {'tweets': tweet_data})
+def trending_reddit_posts(request):
+    # Reddit API credentials
+    # Load environment variables from .env file
+    load_dotenv()
 
+    # Accessing environment variables
+    client_id = os.getenv('REDDIT_CLIENT_ID')
+    client_secret = os.getenv('REDDIT_CLIENT_SECRET')
+    user_agent = os.getenv('REDDIT_USER_AGENT')
+    username = os.getenv('REDDIT_USERNAME')
+    password = os.getenv('REDDIT_PASSWORD')
 
-# def trending_tweets(request):
-#     # Initialize Tweepy client with bearer token
-#     client = tweepy.Client(bearer_token=settings.TWITTER_BEARER_TOKEN)
-#
-#     # Fetch authenticated user's information
-#     user_info = client.get_me(user_fields=['id', 'name', 'username', 'public_metrics'])
-#
-#     # Check if the request was successful
-#     if user_info.data:
-#         # Prepare the user information to return
-#         user_data = {
-#             'id': user_info.data.id,
-#             'name': user_info.data.name,
-#             'username': user_info.data.username,
-#             'followers_count': user_info.data.public_metrics['followers_count'],
-#             'following_count': user_info.data.public_metrics['following_count'],
-#             'tweet_count': user_info.data.public_metrics['tweet_count'],
-#         }
-#         return JsonResponse(user_data, safe=False)
-#     else:
-#         # Handle errors or no data found
-#         return JsonResponse({'error': 'User information could not be retrieved'}, status=404)
+    # Use these variables in your application
+    reddit = praw.Reddit(
+        client_id=client_id,
+        client_secret=client_secret,
+        user_agent=user_agent,
+        username=username,
+        password=password
+    )
+    popular_subreddits = reddit.subreddits.popular()
 
+    # Convert the generator object to a list to enable random selection
+    popular_subreddits_list = list(popular_subreddits)
 
-# def trending_tweets(request):
-#     # Initialize Tweepy client with bearer token
-#     print(settings.TWITTER_BEARER_TOKEN)
-#     client = tweepy.Client(bearer_token=settings.TWITTER_BEARER_TOKEN)
-#
-#     # Perform a simple API call to verify functionality
-#     response = client.get_me()
-#
-#     # Check if the request was successful
-#     if response.data:
-#         return JsonResponse({'message': 'API call successful', 'data': response.data}, safe=False)
-#     else:
-#         return JsonResponse({'error': 'API call failed', 'details': response.errors}, status=404)
+    # Select a random subreddit from the list
+    subreddit = random.choice(popular_subreddits_list)
+    # Choose the subreddit
+    # subreddit = reddit.subreddit('askscience')
 
+    # Fetch top posts from the subreddit
+    top_posts = subreddit.top(limit=10)
 
-import requests
-from django.http import JsonResponse
-from django.conf import settings
+    # Extracting necessary information from posts
+    posts_data = [{
+        'title': post.title,
+        'url': post.url,
+        'author': post.author.name if post.author else 'unknown',
+        'score': post.score,
+        'comments': post.num_comments
+    } for post in top_posts]
 
-
-def trending_tweets(request):
-    # Twitter API URL for fetching user information
-    url = "https://api.twitter.com/2/users/me"
-
-    # Headers for OAuth 2.0 Bearer Token authentication
-    headers = {
-        "Authorization": f"Bearer {settings.TWITTER_BEARER_TOKEN}"
-    }
-
-    # Make the GET request to the Twitter API
-    response = requests.get(url, headers=headers)
-
-    # Check if the request was successful
-    if response.status_code == 200:
-        user_data = response.json()
-        return JsonResponse({'message': 'API call successful', 'data': user_data}, safe=False)
-    else:
-        return JsonResponse({'error': 'API call failed', 'details': response.text}, status=response.status_code)
+    return render(request, 'trending.html', {'posts': posts_data, 'subreddit_title': subreddit.title})

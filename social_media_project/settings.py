@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-5kvs+^2vm-lich7gvrq1rr3t_!j_pm1u4-*s^9ppg=q38)g=g7
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -71,7 +69,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'social_media_project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -81,7 +78,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -101,7 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -112,7 +107,6 @@ TIME_ZONE = 'Europe/Madrid'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -125,5 +119,12 @@ STATIC_FILES_DIRS = [BASE_DIR / "static"]  # Add the static directory to the STA
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "home" # Add this line to redirect the user to the home page after logging in
-LOGOUT_REDIRECT_URL = "home" # Add this line to redirect the user to the home page after logging out
+LOGIN_REDIRECT_URL = "home"  # Add this line to redirect the user to the home page after logging in
+LOGOUT_REDIRECT_URL = "home"  # Add this line to redirect the user to the home page after logging out
+
+# Add these lines to your settings.py file
+TWITTER_API_KEY = 'XxfwTKbeP48cFiWsNUD3t25dD'
+TWITTER_API_SECRET_KEY = '7Xdo6b7G74gBTdmtKxhea1xdnR9VOnGeyYPEPez8vV0njvU9RR'
+TWITTER_ACCESS_TOKEN = '1791101754097987585-Dt9hBfKDHJOgxkpDXlPRZFAUuWrgIV'
+TWITTER_ACCESS_TOKEN_SECRET = 'IjSrSWEwoSXUoAGDN36wCNverbI51vcwNQcKY5Xusfp4J'
+TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAJhPtwEAAAAA%2B0R2lgiaoI32F5IVtecWhksSD%2Fc%3DYcONWCr5zvmX7ZVVJlcyJgCSac0hr9OAGow0MvC7hUpUBh2ISS'

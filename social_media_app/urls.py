@@ -106,6 +106,6 @@ urlpatterns = [
     path('deleteInteraction/<int:pk>/',
          InteractionDeleteView.as_view(),
          name='interaction_confirm_delete'),
-    path('trending/', trending_tweets, name='trending'),
+    path('trending/', trending_reddit_posts, name='trending'),
 ]
 
