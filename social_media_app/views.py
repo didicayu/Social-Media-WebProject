@@ -260,20 +260,15 @@ class InteractionDeleteView(LoginRequiredMixin, DeleteView):
 
 ###### TRENDING FOR SHOWING POSTS FROM REDDIT
 
-
 def trending_reddit_posts(request):
-    # Reddit API credentials
-    # Load environment variables from .env file
     load_dotenv()
 
-    # Accessing environment variables
     client_id = os.getenv('REDDIT_CLIENT_ID')
     client_secret = os.getenv('REDDIT_CLIENT_SECRET')
     user_agent = os.getenv('REDDIT_USER_AGENT')
     username = os.getenv('REDDIT_USERNAME')
     password = os.getenv('REDDIT_PASSWORD')
 
-    # Use these variables in your application
     reddit = praw.Reddit(
         client_id=client_id,
         client_secret=client_secret,
@@ -281,20 +276,21 @@ def trending_reddit_posts(request):
         username=username,
         password=password
     )
-    popular_subreddits = reddit.subreddits.popular()
 
-    # Convert the generator object to a list to enable random selection
-    popular_subreddits_list = list(popular_subreddits)
+    subreddit_name = request.GET.get('subreddit')
+    if subreddit_name:
+        try:
+            subreddit = reddit.subreddit(subreddit_name)
+            top_posts = subreddit.top(limit=10)
+        except Exception as e:
+            # Handle the case where the subreddit is not found or another error occurs
+            return render(request, 'trending.html', {'error': 'Subreddit not found or an error occurred.'})
+    else:
+        popular_subreddits = reddit.subreddits.popular()
+        popular_subreddits_list = list(popular_subreddits)
+        subreddit = random.choice(popular_subreddits_list)
+        top_posts = subreddit.top(limit=10)
 
-    # Select a random subreddit from the list
-    subreddit = random.choice(popular_subreddits_list)
-    # Choose the subreddit
-    # subreddit = reddit.subreddit('askscience')
-
-    # Fetch top posts from the subreddit
-    top_posts = subreddit.top(limit=10)
-
-    # Extracting necessary information from posts
     posts_data = [{
         'title': post.title,
         'url': post.url,
