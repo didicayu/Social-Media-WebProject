@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_media_app',
     'accounts',
+    'behave_django',
 ]
 
 MIDDLEWARE = [
@@ -122,9 +123,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "home"  # Add this line to redirect the user to the home page after logging in
 LOGOUT_REDIRECT_URL = "home"  # Add this line to redirect the user to the home page after logging out
 
-# Add these lines to your settings.py file
-TWITTER_API_KEY = 'XxfwTKbeP48cFiWsNUD3t25dD'
-TWITTER_API_SECRET_KEY = '7Xdo6b7G74gBTdmtKxhea1xdnR9VOnGeyYPEPez8vV0njvU9RR'
-TWITTER_ACCESS_TOKEN = '1791101754097987585-Dt9hBfKDHJOgxkpDXlPRZFAUuWrgIV'
-TWITTER_ACCESS_TOKEN_SECRET = 'IjSrSWEwoSXUoAGDN36wCNverbI51vcwNQcKY5Xusfp4J'
-TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAJhPtwEAAAAA%2B0R2lgiaoI32F5IVtecWhksSD%2Fc%3DYcONWCr5zvmX7ZVVJlcyJgCSac0hr9OAGow0MvC7hUpUBh2ISS'
