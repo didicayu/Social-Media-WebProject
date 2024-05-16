@@ -276,25 +276,32 @@ def trending_reddit_posts(request):
     )
 
     subreddit_name = request.GET.get('subreddit')
-    if subreddit_name:
-        try:
-            subreddit = reddit.subreddit(subreddit_name)
-            top_posts = subreddit.top(limit=10)
-        except Exception as e:
-            # Handle the case where the subreddit is not found or another error occurs
-            return render(request, 'trending.html', {'error': 'Subreddit not found or an error occurred.'})
-    else:
+    print(subreddit_name)
+
+    try:
+        subreddit = reddit.subreddit(subreddit_name)
+        top_posts = subreddit.top(limit=10)
+        posts_data = [{
+            'title': post.title,
+            'url': post.url,
+            'author': post.author.name if post.author else 'unknown',
+            'score': post.score,
+            'comments': post.num_comments
+        } for post in top_posts]
+
+    except Exception as e:
         popular_subreddits = reddit.subreddits.popular()
         popular_subreddits_list = list(popular_subreddits)
         subreddit = random.choice(popular_subreddits_list)
+        subreddit.title += f"</br> The subreddit {subreddit_name} was not found! - Showing Random"
         top_posts = subreddit.top(limit=10)
 
-    posts_data = [{
-        'title': post.title,
-        'url': post.url,
-        'author': post.author.name if post.author else 'unknown',
-        'score': post.score,
-        'comments': post.num_comments
-    } for post in top_posts]
+        posts_data = [{
+            'title': post.title,
+            'url': post.url,
+            'author': post.author.name if post.author else 'unknown',
+            'score': post.score,
+            'comments': post.num_comments
+        } for post in top_posts]
 
     return render(request, 'trending.html', {'posts': posts_data, 'subreddit_title': subreddit.title})
