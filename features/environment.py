@@ -6,6 +6,5 @@ def before_all(context):
 
 
 def after_all(context):
-    sleep(5)
     context.browser.quit()
     context.browser = None

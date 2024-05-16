@@ -8,6 +8,12 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 django = "^5.0.3"
+behave = "^1.2.6"
+chromedriver = "^2.24.1"
+splinter = "^0.21.0"
+choco = "^1.0.5"
+selenium = "^4.21.0"
+praw = "^7.7.1"
 
 
 [build-system]

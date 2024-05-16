@@ -1,6 +1,5 @@
 import random
 import os
-from dotenv import load_dotenv
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
@@ -9,10 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import DeleteView
-from django.shortcuts import redirect
 from .models import *
+from dotenv import load_dotenv
 import praw
-from django.http import JsonResponse
 
 
 class GeneralCreateView(LoginRequiredMixin, TemplateView):
