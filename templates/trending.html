@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{#
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Trending Tweets{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="display-4 text-primary">Trending Tweets</h1>
+  <div class="row">
+    {% for tweet in tweets %}
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ tweet.user.name }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ tweet.created_at }}</h6>
+          <p class="card-text">{{ tweet.text }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}#}
+{% extends "base.html" %}
+
+{% block title %}Trending Tweets{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="display-4 text-primary">Trending Tweets</h1>
+  <div class="row">
+    {% for tweet in tweets %}
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ tweet.user.name }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ tweet.created_at }}</h6>
+          <p class="card-text">{{ tweet.text }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

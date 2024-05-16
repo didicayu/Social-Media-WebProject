@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView, DetailView
-from social_media_app.models import *
+###########   from social_media_app.models import *
 from .views import *
 
 
@@ -106,6 +106,6 @@ urlpatterns = [
     path('deleteInteraction/<int:pk>/',
          InteractionDeleteView.as_view(),
          name='interaction_confirm_delete'),
-
+    path('trending/', trending_tweets, name='trending'),
 ]
 
