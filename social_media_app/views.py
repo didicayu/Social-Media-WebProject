@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import DeleteView
 from django.contrib import messages
@@ -87,7 +87,7 @@ class BrandCompanyCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('company_detail', kwargs={'pk': self.object.pk})
 
 
-class BrandCompanyDetailView(DetailView):
+class BrandCompanyDetailView(LoginRequiredMixin, DetailView):
     model = BrandCompany
     template_name = 'company_detail.html'
     context_object_name = 'company'
@@ -274,8 +274,10 @@ def trending_reddit_posts(request):
             'product': placeholder_product
         }
         SocialMediaPost.objects.create(**post_data)
+        # Generate the URL for the 'home' view
+        home_url = reverse('home')
+        return HttpResponse(f'<script>alert("Post saved successfully!"); window.location.href = "{home_url}"</script>')
 
-        return HttpResponse('<script>alert("Post saved successfully!"); window.location.href = "{% url \'home\' %}"</script>')
 
     else:
         load_dotenv()
