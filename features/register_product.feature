@@ -12,19 +12,17 @@ Feature: Register Product
     When I register company
       | name        | industry     |
       | Coca-Cola   | Alimentation |
-    Then I register product
-      | name        | company     |
-      | shoe        | Coca-Cola   |
-    Then I'm viewing the details page for product by "user"
-      | name        | company     |
-      | shoe        | Coca-Cola   |
+    And I register product with company "Coca-Cola"
+      | name        | category    | company     |
+      | cola        | Drink       | Coca-Cola   |
+    Then I'm viewing the details page for product "cola"
     And There are 1 Products
 
 
   Scenario: Try to register product but not logged in
     Given I'm not logged in
     When I register product
-      | name        |
-      | Coca-Cola   |
+      | name        | category    | company     |
+      | cola        | Drink       | Coca-Cola   |
     Then I'm redirected to the login form
     And There are 0 Products

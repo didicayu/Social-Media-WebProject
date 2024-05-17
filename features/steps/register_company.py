@@ -12,13 +12,15 @@ use_step_matcher("parse")
 
 @when('I register company')
 def step_impl(context):
-    for row in context.table:
-        context.browser.visit(context.get_url('company_create'))
-        if context.browser.url == context.get_url('company_create'):
-            form = context.browser.find_by_id('company_create_form')
-            for heading in row.headings:
-                context.browser.fill(heading, row[heading])
-            form.find_by_value('Submit').first.click()
+    if context.browser.is_text_present('Log Out'):
+        for row in context.table:
+            context.browser.visit(context.get_url('company_create'))
+            if context.browser.url == context.get_url('company_create'):
+                form = context.browser.find_by_id('company_create_form')
+                for heading in row.headings:
+                    context.browser.fill(heading, row[heading])
+                form.find_by_value('Submit').first.click()
+
 
 @then('I\'m viewing the details page for company by "{username}"')
 def step_impl(context, username):

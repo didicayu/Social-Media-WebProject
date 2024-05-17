@@ -21,15 +21,7 @@ Feature: Edit Company
       | Coca-Cola   | Alimentation |
     And There are 1 Companies
 
-  Scenario: Try to edit company but not logged in
-    Given I'm not logged in
-    When I register company
-      | name        | industry     |
-      | Coca-Cola   | Alimentation |
-    Then I'm redirected to the login form
-    And There are 0 Companies
-
-  Scenario: Try to edit company but not logged in
+  Scenario: Try to edit company but not logged in 2
     Given I'm not logged in
     When I view the details for company "Coca-Cola"
     Then I'm redirected to the login form

@@ -20,11 +20,27 @@ def step_impl(context):
                 context.browser.fill(heading, row[heading])
             form.find_by_value('create').first.click()
 
+@when('I register product with company "{company}"')
+def step_impl(context,company):
+    companyObj = BrandCompany.objects.get(name=company)
+    #companyObj = BrandCompany.objects.get(name=company)
+    for row in context.table:
+        context.browser.visit(context.get_url('product_create'))
+        if context.browser.url == context.get_url('product_create'):
+            form = context.browser.find_by_id('product_create_form')
+            for heading in row.headings[:2]:
+                context.browser.fill(heading, row[heading])
+                # context.browser.fill("name", "cola")
+                # context.browser.fill("category", "Drink")
+            context.browser.select("company", companyObj.id)
+            form.find_by_value('create').first.click()
 
-@then('I\'m viewing the details page for product by "{username}"')
-def step_impl(context, username):
-    q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
-    product = ProductService.objects.filter(reduce(operator.and_, q_list)).get()
+
+
+
+@then('I\'m viewing the details page for product "{product}"')
+def step_impl(context, product):
+    product  = ProductService.objects.get(name=product)
     actual_url = context.browser.url
     expected_url = context.get_url(product_id=product.pk)
     expected_url += reverse('product_detail', kwargs={'pk': product.pk})

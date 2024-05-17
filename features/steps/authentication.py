@@ -25,5 +25,5 @@ def step_impl(context):
 
 @then("I'm redirected to the login form")
 def step_impl(context):
-    #context.browser.visit(context.get_url('/accounts/login/'))
+
     assert context.browser.url.startswith(context.get_url('/accounts/login')), f"Expected to be redirected to {context.get_url('login')} page, but was at {context.browser.url}"
