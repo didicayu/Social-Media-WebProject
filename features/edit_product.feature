@@ -1,7 +1,7 @@
-Feature: Edit Company
-  In order to keep track of the companies registered
+Feature: Edit Product
+  In order to keep track of the products registered
   As a user
-  I want to edit a company
+  I want to edit a product
 
   Background: There is a registered user
     Given Exists a user "user" with password "password"

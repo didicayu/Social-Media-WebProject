@@ -39,6 +39,24 @@ After your work is done you can shutdown the docker compose using:
 $ docker-compose down
 ```
 And the application should be correctly finalized
+### -Alternatively, you can start it in local
+```bash
+$ python3 -m venv .venv
+```
+```bash
+$ source .venv/bin/activate       (LINUX)
+$ source .venv\Scripts\activate   (WINDOWS)
+```
+```bash
+$ pip install poetry
+```
+```bash
+$ poetry install
+```
+```bash
+$ poetry run python manage.py runserver
+```
+
 
 ## *Data Model*
 
@@ -91,9 +109,89 @@ You can log in as superuser by:
 ## *Agile Behaviour Driven Development (BDD)*
 
 The aim of this application is to help users keep track of social media interaction and posts. 
-Features:
-?????????????????????????
-?????????????????????????????????????????????????
+
+- **Features:**
+  - `Register Company`
+  - `Register Product` 
+  - `Create Post` 
+  - `Create User Interaction` 
+  - `Edit Company` 
+  - `Edit Product` 
+  - `Edit Post` 
+  - `Remove Company` 
+  - `Remove Product` 
+  - `Remove Post` 
+  - `Remove Interaction`
+  
+To execute the tests, you can use:
+```bash
+$ python manage.py behave
+```
+Or alternately
+```bash
+$ poetry run manage.py behave
+```
+The result is the following list of feature files with their corresponding content in the features/ folder:
+- **Content**
+  - `register_company.feature`    
+  Feature: Register Company    
+  In order to keep track of the companies registered   
+  As a user   
+  I want to register a company together with its industry type   
+  - `register_product.feature`  
+  Feature: Register Product   
+  In order to keep track of the products registered  
+  As a user  
+  I want to register a product together with its category and company type  
+  - `create_post.feature`  
+  Feature: Create Post  
+  In order to keep track of the posts created  
+  As a user  
+  I want to create a post  
+  - `create_user_interaction.feature`  
+  Feature: Create Interaction  
+  In order to keep track of the interactions created  
+  As a user  
+  I want to create an interaction  
+  - `edit_company.feature`  
+  Feature: Edit Company  
+  In order to keep track of the companies registered  
+  As a user  
+  I want to edit a company  
+  - `edit_product.feature`  
+  Feature: Edit Product  
+  In order to keep track of the products registered  
+  As a user  
+  I want to edit a product  
+  - `edit_post.feature`  
+  Feature: Edit Post    
+  In order to keep track of the posts registered    
+  As a user    
+  I want to edit a post  
+  - `remove_company.feature`  
+  Feature: Remove Company  
+  In order to remove the companies registered  
+  As a user  
+  I want to remove a company together with its industry type  
+  - `remove_product.feature`  
+  Feature: Remove Product  
+  In order to keep track of the companies registered  
+  As a user  
+  I want to edit a company  
+
+  - `remove_post.feature`  
+  Feature: Remove Post  
+  In order to keep track of the Posts registered  
+  As a user  
+  I want to remove a post  
+
+  - `remove_interaction.feature`  
+  Feature: Remove Interaction  
+  In order to keep track of the interactions registered  
+  As a user  
+  I want to edit an interaction  
+
+
 
 ## Model Changes Overview
 
@@ -126,11 +224,11 @@ Our application now includes a powerful feature that allows users to search for 
 
 1. **Topic Search**: Users can enter a topic into the search bar. The application then queries Reddit's API to find subreddits that match the entered topic.
 
-2. **Display Results**: The search results are displayed on a dedicated page, listing the top 10 matching subreddits. This page provides an overview of each subreddit, including its title and a brief description.
+2. **Display Results**: The search results are displayed on a dedicated page, listing the top 10 matching posts from the selected subreddit. This page provides an overview of each post, including its title and a brief description.
 
 3. **Integration with Database**: Alongside viewing the subreddit information, users have the option to integrate selected data into our application's database. This means that any interesting posts found within these subreddits can be saved directly as posts in our application.
 
-4. **Creating Posts**: For each selected subreddit post, users can click a "Save Post" button. This action saves the post's content, along with its metadata (such as likes, comments, and shares), into our database as a new post. 
+4. **Creating Posts**: For each selected subreddit post, users can click a "Save Post" button. This action saves the post's content, along with its metadata (such as likes and comments), into our database as a new post. 
 
 5. **Redirection**: After saving a post, users are redirected to the "Home" page, where they are greeted with a success message confirming that the post has been saved.
 
