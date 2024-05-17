@@ -53,13 +53,7 @@ And the application should be correctly finalized
 - **Attributes:**
   - `name` (CharField): The name of the product or service. Maximum length: 100.
   - `category` (CharField): The category or type of the product or service. Maximum length: 100.
-
-### SocialMediaUser
-
-- **Attributes:**
-  - `user` (ForeignKey): Represents the associated Django User.
-  - `followers_count` (IntegerField): The number of followers the user has. Default: 0.
-  - `following_count` (IntegerField): The number of users the user is following. Default: 0.
+  - `company` (ForeignKey): Links to a `BrandCompany` instance, representing the company that offers this product or service.
 
 ### SocialMediaPost
 
@@ -70,8 +64,7 @@ And the application should be correctly finalized
   - `comments` (IntegerField): The number of comments the post has received. Default: 0.
   - `timestamp` (DateTimeField): The timestamp of when the post was created. Automatically set to the current timestamp.
   - `user` (ForeignKey): Represents the user who created the post.
-  - `products_services` (ManyToManyField): Represents the products or services mentioned in the post.
-
+  - `product` (ForeignKey): Links to a `ProductService` instance, representing the product or service mentioned in the post. This field is optional (`null=True`), allowing for posts that may not be directly related to a specific product or service. When a product is deleted, any posts linked to it will also be removed (`on_delete=models.CASCADE`).
 ### UserInteraction
 
 - **Attributes:**
@@ -99,3 +92,49 @@ You can log in as superuser by:
 
 The aim of this application is to help users keep track of social media interaction and posts. 
 Features:
+?????????????????????????
+?????????????????????????????????????????????????
+
+## Model Changes Overview
+
+In the recent update of our application, we've made several significant changes to our data models to enhance functionality and streamline data relationships. Here's a brief overview of these changes:
+
+1. **Company Association in ProductService**: We've added a `company` field to the `ProductService` model. This change allows each product or service to be directly linked to a specific brand or company, facilitating easier tracking and management of products under their respective companies.
+
+2. **Product Relationship in SocialMediaPost**: Previously, the relationship between products and social media posts was managed through a ManyToMany relationship. We've simplified this by changing the `product` field in the `SocialMediaPost` model to a ForeignKey. Now, each post is linked to a single product or service.
+
+3. **Removal of SocialMediaUser Model**: The `SocialMediaUser` model has been removed from our data structure. This decision was made to streamline our user management process by utilizing Django's built-in `User` model for handling user data, thereby reducing redundancy and simplifying our data model.
+
+
+## Creating New Instances: Step-by-Step Guide
+
+Our application is designed to follow a specific order when creating new instances, ensuring data integrity and logical relationships between entities. Here's the recommended sequence:
+
+1. **BrandCompany**: First, create a `BrandCompany` instance. This is essential as products and posts are associated with companies.
+
+2. **ProductService**: After establishing a company, you can create a `ProductService` instance. Each product must be linked to a previously created company.
+
+3. **SocialMediaPost**: With companies and products set up, you can now create `SocialMediaPost` instances. These posts can reference both the products and the companies they are related to.
+
+4. **UserInteraction**: Finally, `UserInteraction` instances can be created. These are interactions (like, comment, share) that users have with the social media posts.
+
+Following this order ensures that all entities are correctly linked and that the data reflects the real-world relationships between companies, products, and user interactions.
+
+## API Integration: Reddit Topic Search Posts
+
+Our application now includes a powerful feature that allows users to search for topics across Reddit. This functionality enables users to explore the top 10 subreddits related to a specific topic of interest. Here's how it works:
+
+1. **Topic Search**: Users can enter a topic into the search bar. The application then queries Reddit's API to find subreddits that match the entered topic.
+
+2. **Display Results**: The search results are displayed on a dedicated page, listing the top 10 matching subreddits. This page provides an overview of each subreddit, including its title and a brief description.
+
+3. **Integration with Database**: Alongside viewing the subreddit information, users have the option to integrate selected data into our application's database. This means that any interesting posts found within these subreddits can be saved directly as posts in our application.
+
+4. **Creating Posts**: For each selected subreddit post, users can click a "Save Post" button. This action saves the post's content, along with its metadata (such as likes, comments, and shares), into our database as a new post. 
+
+5. **Redirection**: After saving a post, users are redirected to the "Home" page, where they are greeted with a success message confirming that the post has been saved.
+
+****About Reddit API Credentials**** 
+
+API Key and Secret, Username and all necessary information to access the Reddit API are stored in the .env file  which is attached in the task assignment at Campus Virtual. This file is not included in the repository for security reasons.
+
