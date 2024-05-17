@@ -8,10 +8,10 @@
     <div class="col-md-6">
       <h1 class="display-4 text-primary" style="text-align: center; padding-top: 30px;">Edit Post</h1>
       <div style="display: flex; justify-content: center; align-items: flex-start; width: 100%; padding-top: 20px;">
-        <form method="post" style="margin-right: 20px;">
+        <form id = "post_edit_form" method="post" style="margin-right: 20px;">
           {% csrf_token %}
           {{ form.as_p }}
-          <button type="submit" class="btn btn-primary">Edit</button>
+          <button type="submit" value="Submit" class="btn btn-primary">Edit</button>
             <a href="{% url 'post_detail' object.pk %}" class="btn btn-secondary" style="margin-left: 20px">Cancel</a>
 
         </form>

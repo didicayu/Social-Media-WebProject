@@ -11,7 +11,7 @@
             <form id="company_create_form" method="post" style="width: 100%;">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Create</button>
+            <button type="submit" value="Submit" class="btn btn-primary" style="margin-top: 20px;">Create</button>
                 <a href="{% url 'home' %}" class="btn btn-secondary" style="margin-left: 20px; margin-top: 20px;">Cancel</a>
             </form>
         </div>

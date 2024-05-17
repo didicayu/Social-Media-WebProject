@@ -1,28 +1,43 @@
-Feature: Create user interaction
-  In order to keep track of my user interactions
+Feature: Create Interaction
+  In order to keep track of the interactions created
   As a user
-  I want to create a user interaction
-  Background: There are registered users and a post by one of them
-    Given Exists a user "user1" with password "password"
-    And Exists a user "user2" with password "password"
-    And Exists post registered by "user1"
-      | content   |
-      | Sketcker  |
+  I want to create an interaction
 
-  Scenario: Create a user interaction
-    Given I login as user "user2" with password "password"
-    When I create a user interaction "comment" at post "Sketcher"
-      | interaction_type    | comment     |
-      | comment             | Buena foto  |
-    Then I'm viewing the details page for user interaction at post "sketcher" by "user2"
-      | post    | interaction_type    | comment     |
-      | Sketcker| comment             | Buena foto  |
-    And There are 1 post
+  Background: There is a registered user
+    Given Exists a user "user" with password "password"
 
-  Scenario: Try to create user interaction but not logged in
+
+  Scenario: Create Interaction
+    Given I login as user "user" with password "password"
+    When I register company
+      | name        | industry     |
+      | Coca-Cola   | Alimentation |
+    And I register product with company "Coca-Cola"
+      | name        | category    | company     |
+      | cola        | Drink       | Coca-Cola   |
+    And I create post with product "cola"
+      | content     | product    |
+      | colaPost    | cola       |
+    And I create like interaction for post "colaPost"
+      | post        |interaction_type |
+      | colaPost    | like            |
+    Then I'm viewing the details page for interaction in post "colaPost"
+      | post        |interaction_type |
+      | colaPost    | like            |
+    And There are 1 Interactions
+    And There are 1 likes in post "colaPost"
+
+
+  Scenario: Try to create post but not logged in
     Given I'm not logged in
-    When I create the user interaction for post "Sketcher"
-    | interaction_type    | comment     |
-    | comment             | Buena foto  |
+    When I register company
+      | name        | industry     |
+      | Coca-Cola   | Alimentation |
+    And I register product
+      | name        | category    | company     |
+      | cola        | Drink       | Coca-Cola   |
+    And I create post
+      | content     | product    |
+      | colaPost    | cola       |
     Then I'm redirected to the login form
-    And There are 0 posts
+    And There are 0 Posts

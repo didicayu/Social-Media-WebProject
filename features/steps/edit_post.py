@@ -10,22 +10,20 @@ import operator
 
 use_step_matcher("parse")
 
-
-@when('I edit the post with the name "{post}"')
+@when('I edit the post "{post}"')
 def step_impl(context, post):
     if context.browser.is_text_present('Log Out'):
         for row in context.table:
-            q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
-            query = reduce(operator.and_, q_list)
-            company = SocialMediaPost.objects.filter(query).get()
-            expected_url = reverse('company_edit', kwargs={'pk': company.pk})
+            pt  = SocialMediaPost.objects.get(content=post)
+            expected_url = reverse('post_edit', kwargs={'pk': pt.pk})
             context.browser.visit(context.get_url(expected_url))
             if context.browser.url == context.get_url(expected_url):
-                form = context.browser.find_by_id('company_edit_form')
+                form = context.browser.find_by_id('post_edit_form')
                 for heading in row.headings:
-                    if heading != 'name':
+                    if heading != 'product':
                         context.browser.fill(heading, row[heading])
                 form.find_by_value('Submit').first.click()
     else:
         context.browser.visit(context.get_url('/accounts/login/'))
+
 

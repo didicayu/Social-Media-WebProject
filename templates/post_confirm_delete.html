@@ -11,7 +11,7 @@
       <div style="display: flex; justify-content: center; align-items: flex-start; width: 100%; padding-top: 20px;">
         <form method="post" style="margin-right: 20px;">
           {% csrf_token %}
-          <button type="submit" class="btn btn-danger" style="margin-top: 20px;">Delete</button>
+          <button type="submit" id="post_delete" class="btn btn-danger" style="margin-top: 20px;">Delete</button>
         </form>
         <a href="{% url 'home' %}" class="btn btn-secondary" style="margin-left: 20px; margin-top: 20px;">Cancel</a>
       </div>

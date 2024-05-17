@@ -18,6 +18,7 @@ Feature: Create Post
     And I create post with product "cola"
       | content     | product    |
       | colaPost    | cola       |
+    Then I'm viewing the details page for post "colaPost"
     Then There are 1 Posts
 
 
@@ -26,10 +27,10 @@ Feature: Create Post
     When I register company
       | name        | industry     |
       | Coca-Cola   | Alimentation |
-    And I register product with company "Coca-Cola"
+    And I register product
       | name        | category    | company     |
       | cola        | Drink       | Coca-Cola   |
-    And I create post with product "cola"
+    And I create post
       | content     | product    |
       | colaPost    | cola       |
     Then I'm redirected to the login form

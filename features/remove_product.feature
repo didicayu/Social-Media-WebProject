@@ -1,4 +1,4 @@
-Feature: Edit Company
+Feature: Remove Product
   In order to keep track of the companies registered
   As a user
   I want to edit a company

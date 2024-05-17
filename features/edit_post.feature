@@ -14,21 +14,23 @@ Feature: Edit Post
       | cola        | Drink       | Coca-Cola   |
     And I create post with product "cola"
       | content     | product    |
-      | cola_Post   | cola       |
+      | colaPost    | cola       |
     Then There are 1 Posts
 
-  Scenario: Edit company
+  Scenario: Edit post
     Given I login as user "user" with password "password"
-    When I edit the post with the name "cola_Post"
+    When I edit the post "colaPost"
       | content     | product    |
-      | fanta_post  | fanta      |
-    Then I'm viewing the details page for post "fanta_post"
+      | colaPostEDIT| cola       |
+    Then I'm viewing the details page for post "colaPostEDIT"
       | content     | product    |
-      | fanta_post  | fanta      |
+      | colaPostEDIT| cola       |
     And There are 1 Posts
 
   Scenario: Try to edit post but not logged in
     Given I'm not logged in
-    When I'm viewing the details page for company by "user"
+    When I edit the post "colaPost"
+      | content     | product    |
+      | colaPostEDIT| cola       |
     Then I'm redirected to the login form
 

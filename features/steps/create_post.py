@@ -9,9 +9,17 @@ import operator
 from social_media_app.models import *
 use_step_matcher("parse")
 
+@when('I create post')
+def step_impl(context):
+    for row in context.table:
+        context.browser.visit(context.get_url('post_create'))
+        if context.browser.url == context.get_url('post_create'):
+            form = context.browser.find_by_id('post_create_form')
+            for heading in row.headings:
+                context.browser.fill(heading, row[heading])
+            form.find_by_value('create').first.click()
 @when('I create post with product "{product}"')
 def step_impl(context,product):
-
     product = ProductService.objects.get(name=product)
     for row in context.table:
         context.browser.visit(context.get_url('post_create'))
