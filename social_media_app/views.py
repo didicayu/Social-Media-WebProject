@@ -8,6 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import DeleteView
+from django.contrib import messages
+from django.http import HttpResponse
 from .models import *
 from dotenv import load_dotenv
 import praw
@@ -259,49 +261,65 @@ class InteractionDeleteView(LoginRequiredMixin, DeleteView):
 ###### TRENDING FOR SHOWING POSTS FROM REDDIT
 
 def trending_reddit_posts(request):
-    load_dotenv()
+    if request.method == 'POST':
+        placeholder_user = User.objects.get_or_create(username=request.POST.get('author'))[0]
+        placeholder_product = ProductService.objects.get_or_create(name='placeholder_product')[0]
 
-    client_id = os.getenv('REDDIT_CLIENT_ID')
-    client_secret = os.getenv('REDDIT_CLIENT_SECRET')
-    user_agent = os.getenv('REDDIT_USER_AGENT')
-    username = os.getenv('REDDIT_USERNAME')
-    password = os.getenv('REDDIT_PASSWORD')
+        post_data = {
+            'content': f"{request.POST.get('title')} - {request.POST.get('url')}",
+            'likes': int(request.POST.get('score')),
+            'shares': 0,  # Assuming no shares data
+            'comments': int(request.POST.get('comments')),
+            'user': placeholder_user,
+            'product': placeholder_product
+        }
+        SocialMediaPost.objects.create(**post_data)
 
-    reddit = praw.Reddit(
-        client_id=client_id,
-        client_secret=client_secret,
-        user_agent=user_agent,
-        username=username,
-        password=password
-    )
+        return HttpResponse('<script>alert("Post saved successfully!"); window.location.href = "{% url \'home\' %}"</script>')
 
-    subreddit_name = request.GET.get('subreddit')
-    print(subreddit_name)
+    else:
+        load_dotenv()
 
-    try:
-        subreddit = reddit.subreddit(subreddit_name)
-        top_posts = subreddit.top(limit=10)
-        posts_data = [{
-            'title': post.title,
-            'url': post.url,
-            'author': post.author.name if post.author else 'unknown',
-            'score': post.score,
-            'comments': post.num_comments
-        } for post in top_posts]
+        client_id = os.getenv('REDDIT_CLIENT_ID')
+        client_secret = os.getenv('REDDIT_CLIENT_SECRET')
+        user_agent = os.getenv('REDDIT_USER_AGENT')
+        username = os.getenv('REDDIT_USERNAME')
+        password = os.getenv('REDDIT_PASSWORD')
 
-    except Exception as e:
-        popular_subreddits = reddit.subreddits.popular()
-        popular_subreddits_list = list(popular_subreddits)
-        subreddit = random.choice(popular_subreddits_list)
-        subreddit.title += f"</br> The subreddit {subreddit_name} was not found! - Showing Random"
-        top_posts = subreddit.top(limit=10)
+        reddit = praw.Reddit(
+            client_id=client_id,
+            client_secret=client_secret,
+            user_agent=user_agent,
+            username=username,
+            password=password
+        )
 
-        posts_data = [{
-            'title': post.title,
-            'url': post.url,
-            'author': post.author.name if post.author else 'unknown',
-            'score': post.score,
-            'comments': post.num_comments
-        } for post in top_posts]
+        subreddit_name = request.GET.get('subreddit')
 
-    return render(request, 'trending.html', {'posts': posts_data, 'subreddit_title': subreddit.title})
+        try:
+            subreddit = reddit.subreddit(subreddit_name)
+            top_posts = subreddit.top(limit=10)
+            posts_data = [{
+                'title': post.title,
+                'url': post.url,
+                'author': post.author.name if post.author else 'Unknown',
+                'score': post.score,
+                'comments': post.num_comments
+            } for post in top_posts]
+
+        except Exception as e:
+            popular_subreddits = reddit.subreddits.popular()
+            popular_subreddits_list = list(popular_subreddits)
+            subreddit = random.choice(popular_subreddits_list)
+            subreddit.title += f"</br> The subreddit {subreddit_name} was not found! - Showing Random Posts"
+            top_posts = subreddit.top(limit=10)
+
+            posts_data = [{
+                'title': post.title,
+                'url': post.url,
+                'author': post.author.name if post.author else 'Unknown',
+                'score': post.score,
+                'comments': post.num_comments
+            } for post in top_posts]
+
+        return render(request, 'trending.html', {'posts': posts_data, 'subreddit_title': subreddit.title})

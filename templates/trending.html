@@ -5,27 +5,39 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-4">Trending Reddit Posts</h1>
+
     <h2 class="mb-3" style="color: blue; text-align: center;">Subreddit: {{ subreddit_title }}</h2>
     <table class="table table-bordered">
         <thead class="table-light">
-            <tr>
-                <th>Title</th>
-                <th>URL</th>
-                <th>Author</th>
-                <th>Score</th>
-                <th>Comments</th>
-            </tr>
+        <tr>
+            <th>Title</th>
+            <th>URL</th>
+            <th>Author</th>
+            <th>Score</th>
+            <th>Comments</th>
+        </tr>
         </thead>
         <tbody>
-            {% for post in posts %}
-            <tr>
-                <td>{{ post.title }}</td>
-                <td><a href="{{ post.url }}" target="_blank">{{ post.url }}</a></td>
-                <td>{{ post.author }}</td>
-                <td>{{ post.score }}</td>
-                <td>{{ post.comments }}</td>
-            </tr>
-            {% endfor %}
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.title }}</td>
+            <td><a href="{{ post.url }}" target="_blank">{{ post.url }}</a></td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.score }}</td>
+            <td>{{ post.comments }}</td>
+            <td>
+                <form method="post" >
+                    {% csrf_token %}
+                    <input type="hidden" name="title" value="{{ post.title }}">
+                    <input type="hidden" name="url" value="{{ post.url }}">
+                    <input type="hidden" name="author" value="{{ post.author }}">
+                    <input type="hidden" name="score" value="{{ post.score }}">
+                    <input type="hidden" name="comments" value="{{ post.comments }}">
+                    <button type="submit" class="btn btn-success">Save Post</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>
