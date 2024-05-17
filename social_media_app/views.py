@@ -1,5 +1,7 @@
 import random
 import os
+
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
@@ -136,7 +138,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('product_detail', kwargs={'pk': self.object.pk})
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = ProductService
     template_name = 'product_detail.html'
     context_object_name = 'product'
@@ -163,7 +165,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('post_detail', kwargs={'pk': self.object.pk})
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = SocialMediaPost
     template_name = 'post_detail.html'
     context_object_name = 'post'
@@ -210,7 +212,7 @@ class InteractionCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('interaction_detail', kwargs={'pk': self.object.pk})
 
 
-class InteractionDetailView(DetailView):
+class InteractionDetailView(LoginRequiredMixin, DetailView):
     model = UserInteraction
     template_name = 'interaction_detail.html'
     context_object_name = 'interaction'
@@ -260,6 +262,7 @@ class InteractionDeleteView(LoginRequiredMixin, DeleteView):
 
 ###### TRENDING FOR SHOWING POSTS FROM REDDIT
 
+@login_required
 def trending_reddit_posts(request):
     if request.method == 'POST':
         placeholder_user = User.objects.get_or_create(username=request.POST.get('author'))[0]
@@ -313,7 +316,7 @@ def trending_reddit_posts(request):
             popular_subreddits = reddit.subreddits.popular()
             popular_subreddits_list = list(popular_subreddits)
             subreddit = random.choice(popular_subreddits_list)
-            subreddit.title += f"</br> The subreddit {subreddit_name} was not found! - Showing Random Posts"
+            subreddit.title += f"The subreddit {subreddit_name} was not found! - Showing Random Posts"
             top_posts = subreddit.top(limit=10)
 
             posts_data = [{

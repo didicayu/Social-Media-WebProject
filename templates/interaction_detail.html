@@ -3,17 +3,20 @@
 {% block title %}INTERACTIONS DETAILS{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="padding-top: 20px;">
   <div class="row justify-content-center">
     <div class="col-md-6">
-        <h1>Interaction Detail</h1>
+        <h1 class="display-4 text-primary" style="text-align: center; padding-top: 30px;">Interaction Detail</h1>
+        <div style="text-align: left; margin-left: 80px; padding-top: 20px;">
             <p><strong>User:</strong> {{ interaction.user }}</p>
             <p><strong>Post:</strong> {{ interaction.post.content }}</p>
             <p><strong>Interaction Type:</strong> {{ interaction.get_interaction_type_display }}</p>
             <p><strong>Timestamp:</strong> {{ interaction.timestamp }}</p>
-
-            <a href="{% url 'interaction_confirm_delete' object.pk %}" class="btn-danger">Delete</a>
-            <a  href="{% url 'home' %}">Home</a>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding-top: 20px;">
+            <a href="{% url 'interaction_confirm_delete' object.pk %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+        </div>
     </div>
   </div>
 </div>

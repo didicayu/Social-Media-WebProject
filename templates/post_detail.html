@@ -3,15 +3,17 @@
 {% block title %}Post Form{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="padding-top: 20px;">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h1>Post Detail</h1>
-        <p><strong>Content:</strong> {{ post.content }}</p>
-        <p><strong>Product:</strong> {{ post.product }}</p>
-        <a type="button" href="{% url 'home' %}">Home</a>
-        <a class="button" href="{% url 'post_edit' object.pk %}">Edit</a>
-      <a href="{% url 'post_confirm_delete' object.pk %}" class="btn-danger">Delete</a>
+      <h1 class="display-4 text-primary" style="text-align: center; padding-top: 30px;">Post Detail</h1>
+      <p><strong>Content:</strong> {{ post.content }}</p>
+      <p><strong>Product:</strong> {{ post.product }}</p>
+      <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding-top: 20px;">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+        <a href="{% url 'post_edit' object.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'post_confirm_delete' object.pk %}" class="btn btn-danger">Delete</a>
+      </div>
     </div>
   </div>
 </div>

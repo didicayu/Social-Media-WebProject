@@ -50,10 +50,11 @@
                     {% endfor %}
                 </select>
             </div>
-
-            <button type="submit" name='action' value="button_pressed" class="btn btn-primary">Edit</button>
+            <div style="display: flex; justify-content: left; margin-top: 20px;">
+                <a href="{% url 'home' %}" class="btn btn-secondary" style="margin-left: 20px">Home</a>
+                <button style="margin-left: 10px" type="submit" name='action' value="button_pressed" class="btn btn-primary">Edit</button>
+            </div>
         </form>
-        <a href="{% url 'home' %}" class="btn btn-secondary" style="margin-left: 20px">Home</a>
 
         <script>
             document.getElementById("object_type").addEventListener("change", function () {

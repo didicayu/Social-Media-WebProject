@@ -3,15 +3,17 @@
 {% block title %}COMPANY DETAILS{% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-        <h1>Company Detail</h1>
-        <p><strong>Name:</strong> {{ company.name }}</p>
-        <p><strong>Industry:</strong> {{ company.industry }}</p>
-        <a type="button" href="{% url 'home' %}">Home</a>
-        <a class="button" href="{% url 'company_edit' object.pk %}">Edit</a>
-        <a href="{% url 'company_confirm_delete' object.pk %}" class="btn-danger">Delete</a>
+<div class="container" style="padding-top: 20px;">
+  <div class="row justify-content-center" >
+    <div class="col-md-6" >
+        <h1 class="display-4 text-primary" style="text-align: center; padding-top: 30px;">Company Detail</h1>
+        <p style ="text-align: center; padding-top: 30px"><strong>Name:</strong> {{ company.name }}</p>
+        <p style ="text-align: center"><strong>Industry:</strong> {{ company.industry }}</p>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding-top: 20px;">
+            <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+            <a href="{% url 'company_edit' object.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'company_confirm_delete' object.pk %}" class="btn btn-danger">Delete</a>
+        </div>
     </div>
   </div>
 </div>

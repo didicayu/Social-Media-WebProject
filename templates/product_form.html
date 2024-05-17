@@ -3,15 +3,17 @@
 {% block title %}Product Form{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="padding-top: 20px;">
   <div class="row justify-content-center">
     <div class="col-md-6">
-        <h1>Create Product</h1>
-        <form id="product_create_form" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" value ="create">Create</button>
-        </form>
+        <h1 class="display-4 text-primary" style="text-align: center; padding-top: 30px;">Create Product</h1>
+        <div style="display: flex; justify-content: center; align-items: flex-start; width: 100%; padding-top: 20px;">
+            <form id="product_create_form" method="post" style="width: 100%;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Create</button>
+            </form>
+        </div>
     </div>
   </div>
 </div>

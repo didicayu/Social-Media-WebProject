@@ -3,11 +3,11 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="padding-top: 20px;">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h2>Sign Up</h2>
-      <form method="post">
+      <h1 class="display-4 text-primary" style="text-align: center; padding-top: 30px;">Sign Up</h1>
+      <form method="post" style="text-align: left; padding-top: 20px;">
         {% csrf_token %}
         {{ form.as_p }}
 
@@ -15,10 +15,11 @@
           <h6 class="text-danger">{{ error }}</h6>
         {% endfor %}
 
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding-top: 20px;">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
       </form>
     </div>
   </div>
 </div>
 {% endblock %}
-
