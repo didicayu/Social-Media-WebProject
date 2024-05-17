@@ -21,7 +21,10 @@ Feature: Register Product
 
   Scenario: Try to register product but not logged in
     Given I'm not logged in
-    When I register product
+    When I register company
+      | name        | industry     |
+      | Coca-Cola   | Alimentation |
+    And I register product
       | name        | category    | company     |
       | cola        | Drink       | Coca-Cola   |
     Then I'm redirected to the login form

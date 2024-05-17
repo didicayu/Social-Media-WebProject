@@ -1,36 +1,36 @@
-
-Feature: Create post
-  In order to keep track of my posts
+Feature: Create Post
+  In order to keep track of the posts created
   As a user
-  I want to create a post toghether with its product type
-  Background: There are registered users
-    Given Exists a user "user1" with password "password"
+  I want to create a post
+
+  Background: There is a registered user
+    Given Exists a user "user" with password "password"
 
 
-  Scenario: Register just post content
+  Scenario: Create post
     Given I login as user "user" with password "password"
-    When I post a post
-      | content   |
-      | Sketcher  |
-    Then I'm viewing the details page for post by "user"
-      | content   |
-      | Sketcher  |
-    And There are 1 post
+    When I register company
+      | name        | industry     |
+      | Coca-Cola   | Alimentation |
+    And I register product with company "Coca-Cola"
+      | name        | category    | company     |
+      | cola        | Drink       | Coca-Cola   |
+    And I create post with product "cola"
+      | content     | product    |
+      | colaPost    | cola       |
+    Then There are 1 Posts
 
-  Scenario: Register just post content and product
-    Given I login as user "user" with password "password"
-    When I create a post
-      | content      |  product |
-      | Sketcher     |  shoe   |
-    Then I'm viewing the details page for post by "user"
-      | contnet      |  product |
-      | Sketcher     |  shoe   |
-    And There are 1 post
 
-  Scenario: Try to register post but not logged in
+  Scenario: Try to create post but not logged in
     Given I'm not logged in
-    When I post a post
-      | content        |
-      | The Tavern     |
-    Then I'm redirected to create the login form
-    And There are 0 posts
+    When I register company
+      | name        | industry     |
+      | Coca-Cola   | Alimentation |
+    And I register product with company "Coca-Cola"
+      | name        | category    | company     |
+      | cola        | Drink       | Coca-Cola   |
+    And I create post with product "cola"
+      | content     | product    |
+      | colaPost    | cola       |
+    Then I'm redirected to the login form
+    And There are 0 Posts
