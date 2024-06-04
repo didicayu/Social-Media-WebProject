@@ -6,18 +6,36 @@
 <div class="container" style="padding-top: 20px;">
   <div class="row justify-content-center">
     <div class="col-md-6">
-        <h1 class="display-4 text-primary" style="text-align: center; padding-top: 30px;">Interaction Detail</h1>
-        <div style="text-align: left; margin-left: 80px; padding-top: 20px;">
-            <p><strong>User:</strong> {{ interaction.user }}</p>
-            <p><strong>Post:</strong> {{ interaction.post.content }}</p>
-            <p><strong>Interaction Type:</strong> {{ interaction.get_interaction_type_display }}</p>
-            <p><strong>Timestamp:</strong> {{ interaction.timestamp }}</p>
-        </div>
-        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding-top: 20px;">
-            <a href="{% url 'interaction_confirm_delete' object.pk %}" class="btn btn-danger">Delete</a>
-            <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
-        </div>
+
+
+        <span vocab="https://schema.org/" typeof="UserInteraction">
+            <h1 class="display-4 text-primary" style="text-align: center; padding-top: 30px;">Interaction Detail</h1>
+            <div style="text-align: left; margin-left: 80px; padding-top: 20px;">
+
+                <p><strong>User:</strong> <span property="performer">{{ user }}</span></p>
+
+                <p><strong>Creator:</strong> <span property="author">{{ interaction.user }}</span></p>
+
+                <p><strong>Post:</strong> <span property="name" typeof="Review">{{ interaction.post.content }}</span></p>
+
+                <p><strong>Interaction Type:</strong> <span property="description">{{ interaction.get_interaction_type_display }}</span></p>
+
+                <p><strong>Timestamp:</strong> <span property="startDate">{{ interaction.timestamp }}</span></p>
+
+                 <p><strong>PostOrigin:</strong> <span property="location">{{ .timestamp }}</span></p>
+
+                <span property="location"></span>
+            </div>
+
+
+            <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding-top: 20px;">
+                <a href="{% url 'interaction_confirm_delete' object.pk %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+            </div>
+        </span>
+
     </div>
   </div>
 </div>
+
 {% endblock %}
