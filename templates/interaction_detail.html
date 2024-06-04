@@ -14,17 +14,17 @@
 
                 <p><strong>User:</strong> <span property="performer">{{ user }}</span></p>
 
-                <p><strong>Creator:</strong> <span property="author">{{ interaction.user }}</span></p>
+                <p><strong>Creator:</strong> <span property="director">{{ interaction.user }}</span></p>
 
-                <p><strong>Post:</strong> <span property="name" typeof="Review">{{ interaction.post.content }}</span></p>
+                <p><strong>Post:</strong> <span property="name">{{ interaction.post.content }}</span></p>
 
                 <p><strong>Interaction Type:</strong> <span property="description">{{ interaction.get_interaction_type_display }}</span></p>
 
                 <p><strong>Timestamp:</strong> <span property="startDate">{{ interaction.timestamp }}</span></p>
 
-                 <p><strong>PostOrigin:</strong> <span property="location">{{ .timestamp }}</span></p>
+                 <p><strong>PostOrigin:</strong> <span property="location">Reddit</span></p>
 
-                <span property="location"></span>
+
             </div>
 
 
