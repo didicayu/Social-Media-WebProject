@@ -271,3 +271,7 @@ In this update, RDFa (Resource Description Framework in Attributes) annotations 
 ````
 
 This update enhances the semantic clarity and machine-readability of user interaction data by leveraging the power of RDFa and schema.org vocabularies.
+And we can check it's effectiveness by passing the tests:
+![Google Test](https://imgur.com/zJ2UjyY.png)
+![Schema test](https://imgur.com/hwNOI4h.png)
+![Schema tree](https://imgur.com/72lrIDR.png)
