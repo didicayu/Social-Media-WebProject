@@ -236,36 +236,38 @@ Our application now includes a powerful feature that allows users to search for 
 
 API Key and Secret, Username and all necessary information to access the Reddit API are stored in the .env file  which is attached in the task assignment at Campus Virtual. This file is not included in the repository for security reasons.
 
-## Actualización RDFa en la Plantilla de Interacción de Usuario
+## RDFa Update in User Interaction Template
 
-### Descripción General
+### Overview
 
-En esta actualización, se han añadido anotaciones RDFa (Resource Description Framework in Attributes) a la plantilla HTML utilizada para mostrar los detalles de una interacción de usuario. Esto enriquece los datos con metadatos semánticos, mejorando su accesibilidad y comprensión tanto para humanos como para máquinas.
+In this update, RDFa (Resource Description Framework in Attributes) annotations have been added to the HTML template used to display user interaction details. This enriches the data with semantic metadata, enhancing its accessibility and understanding for both humans and machines.
 
-### Cambios Realizados
+### Changes Made
 
-1. **Incorporación de vocabularios de schema.org**:
-   - Se ha añadido el vocabulario `schema.org` con el tipo `UserInteraction` para proporcionar un contexto semántico a los datos de interacción de usuario.
+1. **Incorporation of schema.org vocabularies:**
+   - The `schema.org` vocabulary has been added with the type `UserInteraction` to provide a semantic context to the user interaction data.
 
-2. **Propiedades Específicas**:
-   - Se han introducido las siguientes propiedades RDFa para enriquecer los datos:
-     - `performer` para el usuario.
-     - `director` para el creador de la interacción.
-     - `name` para el contenido del post.
-     - `description` para el tipo de interacción.
-     - `startDate` para la marca de tiempo.
-     - `location` para el origen del post.
+2. **Specific Properties:**
+   - The following RDFa properties have been introduced to enrich the data:
+     - `performer` for the user.
+     - `director` for the creator of the interaction.
+     - `name` for the content of the post.
+     - `description` for the type of interaction.
+     - `startDate` for the timestamp.
+     - `location` for the origin of the post.
 
-### Ejemplo de Código
+### Code Example
 
-**Antes**:
+**Before:**
 ```html
 <p><strong>User:</strong> {{ user }}</p>
 <p><strong>Creator:</strong> {{ interaction.user }}</p>
 ````
 
-**Después**:
+**After:**
 ```html
 <p><strong>User:</strong> <span property="performer">{{ user }}</span></p>
 <p><strong>Creator:</strong> <span property="director">{{ interaction.user }}</span></p>
 ````
+
+This update enhances the semantic clarity and machine-readability of user interaction data by leveraging the power of RDFa and schema.org vocabularies.
